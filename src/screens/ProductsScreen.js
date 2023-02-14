@@ -1,17 +1,27 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import {FlatList, StyleSheet, View } from 'react-native'
 import React from 'react'
+import ProductsItem from '../components/ProductsItem'
+import { PRODUCTS } from '../data/products'
 
-const ProductsScreen = ({ navigation }) => {
+const ProductsScreen = ({navigation, route}) => {
+
+    const newProducts = PRODUCTS.filter(
+            product => product.category === route.params.categoryId
+        )
+    const handleSelectedProduct = (item) => {
+        navigation.navigate('Details', {
+            name: item.name
+        })
+    }
+    const renderProductItem = ({item}) => <ProductsItem item={item} onSelected={handleSelectedProduct}/>
+
     return (
-        <View style={styles.container}>
-            <Text>ProductsScreen</Text>
-            <Pressable onPress={() => navigation.navigate('Details')}>
-                <Text>Go to Details</Text>
-            </Pressable>
-            <Pressable onPress={() => navigation.goBack()}>
-                <Text>Go Back</Text>
-            </Pressable>
-        </View>
+            <FlatList 
+                data={newProducts} 
+                renderItem={renderProductItem} 
+                keyExtractor={(item) => item.id} 
+                // numColumns={2}
+                />
     )
 }
 
@@ -22,5 +32,9 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    productsContainer: {
+        height: 150,
+        width: 150
     }
 })
