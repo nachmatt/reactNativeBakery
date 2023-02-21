@@ -1,7 +1,11 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const DetailsScreen = ({ navigation }) => {
+    const bread = useSelector(state => state.products.selected);
+    
+
     return (
         <View style={styles.container}>
             <Text>DetailsScreen</Text>

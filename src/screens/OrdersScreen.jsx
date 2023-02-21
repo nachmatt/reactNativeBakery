@@ -1,11 +1,18 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { FlatList, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import OrderItem from '../components/OrderItem'
+import { ORDERS } from '../data/orders'
 
 const OrdersScreen = () => {
+    const renderOrderItem = ({ item }) => (
+        <OrderItem item={item} onDelete={() => console.log('On Delete')}/>
+    )
+
     return (
-        <View>
-            <Text>OrdersScreen</Text>
-        </View>
+        <FlatList 
+            data={ORDERS} 
+            keyExtractor={item => item.id} 
+            renderItem={renderOrderItem}/>
     )
 }
 
