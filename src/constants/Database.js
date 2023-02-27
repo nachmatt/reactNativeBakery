@@ -1,0 +1,1 @@
+export const URL_API = 'https://bakery-app-e066c-default-rtdb.firebaseio.com/'

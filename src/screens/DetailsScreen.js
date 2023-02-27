@@ -1,16 +1,23 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { addItem } from '../store/actions/cart.actions'
 
-const DetailsScreen = ({ navigation }) => {
+const DetailsScreen = ({ navigation, route }) => {
+    const dispatch = useDispatch()
     const bread = useSelector(state => state.products.selected);
     
+    const handleAddItem = () => {
+        dispatch(addItem(bread))
+    }
 
     return (
         <View style={styles.container}>
-            <Text>DetailsScreen</Text>
-            <Pressable onPress={() => navigation.popToTop()}>
-                <Text>Go to Categories</Text>
+            <Text>{bread.name}</Text>
+            <Text>{bread.description}</Text>
+            <Text>{bread.price}</Text>
+            <Pressable onPress={handleAddItem}>
+                <Text>Add to Cart</Text>
             </Pressable>
         </View>
     )
